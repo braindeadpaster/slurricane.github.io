@@ -29,25 +29,25 @@ body{height:100vh;background:#020b18;font-family:'Syne',sans-serif;display:flex;
 
 .bud-bg{
   position:fixed;
-  bottom:-60px;
+  top:50%;
   left:50%;
-  transform:translateX(-50%);
-  width:520px;
+  transform:translate(-50%, -50%);
+  width:480px;
   height:auto;
-  opacity:0.07;
-  filter:blur(1.5px) saturate(1.4);
+  opacity:0.08;
+  filter:blur(2px) saturate(1.4);
   pointer-events:none;
   z-index:1;
   animation:budShake 6s ease-in-out infinite;
-  transform-origin:center bottom;
+  transform-origin:center center;
 }
 @keyframes budShake{
-  0%   {transform:translateX(-50%) rotate(-1deg) scale(1)}
-  20%  {transform:translateX(calc(-50% + 4px)) rotate(0.6deg) scale(1.005)}
-  40%  {transform:translateX(calc(-50% - 3px)) rotate(-0.8deg) scale(1)}
-  60%  {transform:translateX(calc(-50% + 2px)) rotate(0.4deg) scale(1.003)}
-  80%  {transform:translateX(calc(-50% - 2px)) rotate(-0.5deg) scale(1)}
-  100% {transform:translateX(-50%) rotate(-1deg) scale(1)}
+  0%   {transform:translate(-50%, -50%) rotate(-1deg) scale(1)}
+  20%  {transform:translate(calc(-50% + 4px), -50%) rotate(0.6deg) scale(1.005)}
+  40%  {transform:translate(calc(-50% - 3px), -50%) rotate(-0.8deg) scale(1)}
+  60%  {transform:translate(calc(-50% + 2px), -50%) rotate(0.4deg) scale(1.003)}
+  80%  {transform:translate(calc(-50% - 2px), -50%) rotate(-0.5deg) scale(1)}
+  100% {transform:translate(-50%, -50%) rotate(-1deg) scale(1)}
 }
 
 .particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:2}
