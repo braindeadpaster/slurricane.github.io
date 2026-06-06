@@ -26,7 +26,31 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{height:100vh;background:#020b18;font-family:'Syne',sans-serif;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
 .bg-glow{position:fixed;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(10,50,120,0.28) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-.particles{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+
+.bud-bg{
+  position:fixed;
+  bottom:-60px;
+  left:50%;
+  transform:translateX(-50%);
+  width:520px;
+  height:auto;
+  opacity:0.07;
+  filter:blur(1.5px) saturate(1.4);
+  pointer-events:none;
+  z-index:1;
+  animation:budShake 6s ease-in-out infinite;
+  transform-origin:center bottom;
+}
+@keyframes budShake{
+  0%   {transform:translateX(-50%) rotate(-1deg) scale(1)}
+  20%  {transform:translateX(calc(-50% + 4px)) rotate(0.6deg) scale(1.005)}
+  40%  {transform:translateX(calc(-50% - 3px)) rotate(-0.8deg) scale(1)}
+  60%  {transform:translateX(calc(-50% + 2px)) rotate(0.4deg) scale(1.003)}
+  80%  {transform:translateX(calc(-50% - 2px)) rotate(-0.5deg) scale(1)}
+  100% {transform:translateX(-50%) rotate(-1deg) scale(1)}
+}
+
+.particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:2}
 .particle{position:absolute;border-radius:50%;animation:pfloat linear infinite}
 @keyframes pfloat{0%{transform:translateY(110vh);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-80px);opacity:0}}
 
@@ -114,6 +138,7 @@ body{height:100vh;background:#020b18;font-family:'Syne',sans-serif;display:flex;
 <body>
 
 <div class="bg-glow"></div>
+<img class="bud-bg" id="budBg" src="bud.png" alt="" />
 <div class="particles" id="particles"></div>
 
 <nav class="topnav">
@@ -254,9 +279,19 @@ body{height:100vh;background:#020b18;font-family:'Syne',sans-serif;display:flex;
 </div>
 
 <script>
+// Particles
 const p=document.getElementById('particles')
 for(let i=0;i<25;i++){const d=document.createElement('div');d.className='particle';const sz=Math.random()*2.5+1;d.style.cssText=`left:${Math.random()*100}%;width:${sz}px;height:${sz}px;background:rgba(80,140,255,${Math.random()*0.3+0.1});animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*12}s`;p.appendChild(d)}
+
+// Expand layout
 setTimeout(()=>document.getElementById('layout').classList.add('expanded'),1200)
+
+// Embed bud image as base64 from same directory
+// The bud.png should be placed next to index.html on the server
+// Fallback: hide if image fails to load
+document.getElementById('budBg').onerror=function(){this.style.display='none'}
+
+// Modal
 function openModal(){document.getElementById('modalOverlay').classList.add('show')}
 function closeModal(){document.getElementById('modalOverlay').classList.remove('show');resetCopy()}
 function handleOverlay(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
